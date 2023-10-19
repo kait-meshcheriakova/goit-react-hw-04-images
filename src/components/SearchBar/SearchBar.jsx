@@ -10,15 +10,16 @@ import {
 } from './SearchBar.styled';
 
 export const SearchBar = ({ onSubmit }) => {
-  const [searchName, setSearchName] = useState('');
-  const [inputValue, setInputValue] = useState('');
+  const [query, setQuery] = useState('');
   const handleChange = event => {
-    setInputValue(event.target.value);
+    setQuery(event.target.value);
   };
   const handleSubmit = event => {
     event.preventDefault();
-    setSearchName(inputValue.trim());
-    onSubmit(searchName);
+    if (!query) {
+      return;
+    }
+    onSubmit(query);
     event.target.reset();
   };
   return (
@@ -33,7 +34,7 @@ export const SearchBar = ({ onSubmit }) => {
           name="searchName"
           type="text"
           id="search"
-          value={inputValue}
+          value={query}
           onChange={handleChange}
         />
       </SearchForm>
